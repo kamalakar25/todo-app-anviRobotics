@@ -1,37 +1,59 @@
 const express = require('express');
-const db = require('../db/database');
+const { Todo } = require('../db/database');
 const { authenticate } = require('../middleware/authMiddleware');
 
 const router = express.Router();
 
-router.get('/', authenticate, (req, res) => {
-  db.all(`SELECT id, text FROM todos WHERE user_id = ?`, [req.user.id], (err, rows) => {
-    if (err) return res.status(500).json({ message: 'Error fetching todos' });
-    res.json(rows);
-  });
+// Get all todos for user
+router.get('/', authenticate, async (req, res) => {
+  try {
+    const todos = await Todo.find({ user: req.user.id }).select('text');
+    res.json(todos);
+  } catch (err) {
+    res.status(500).json({ message: 'Error fetching todos' });
+  }
 });
 
-router.post('/', authenticate, (req, res) => {
+// Create a new todo
+router.post('/', authenticate, async (req, res) => {
   const { text } = req.body;
-  db.run(`INSERT INTO todos (user_id, text) VALUES (?, ?)`, [req.user.id, text], function (err) {
-    if (err) return res.status(500).json({ message: 'Error creating todo' });
-    res.json({ id: this.lastID, text });
-  });
+
+  try {
+    const todo = new Todo({ user: req.user.id, text });
+    await todo.save();
+    res.json({ id: todo._id, text: todo.text });
+  } catch (err) {
+    res.status(500).json({ message: 'Error creating todo' });
+  }
 });
 
-router.put('/:id', authenticate, (req, res) => {
+// Update a todo
+router.put('/:id', authenticate, async (req, res) => {
   const { text } = req.body;
-  db.run(`UPDATE todos SET text = ? WHERE id = ? AND user_id = ?`, [text, req.params.id, req.user.id], function (err) {
-    if (err || this.changes === 0) return res.status(404).json({ message: 'Todo not found' });
-    res.json({ id: req.params.id, text });
-  });
+
+  try {
+    const updated = await Todo.findOneAndUpdate(
+      { _id: req.params.id, user: req.user.id },
+      { text },
+      { new: true }
+    );
+
+    if (!updated) return res.status(404).json({ message: 'Todo not found' });
+    res.json({ id: updated._id, text: updated.text });
+  } catch (err) {
+    res.status(500).json({ message: 'Error updating todo' });
+  }
 });
 
-router.delete('/:id', authenticate, (req, res) => {
-  db.run(`DELETE FROM todos WHERE id = ? AND user_id = ?`, [req.params.id, req.user.id], function (err) {
-    if (err || this.changes === 0) return res.status(404).json({ message: 'Todo not found' });
+// Delete a todo
+router.delete('/:id', authenticate, async (req, res) => {
+  try {
+    const deleted = await Todo.findOneAndDelete({ _id: req.params.id, user: req.user.id });
+    if (!deleted) return res.status(404).json({ message: 'Todo not found' });
     res.json({ message: 'Todo deleted' });
-  });
+  } catch (err) {
+    res.status(500).json({ message: 'Error deleting todo' });
+  }
 });
 
 module.exports = router;

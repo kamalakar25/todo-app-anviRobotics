@@ -1,4 +1,4 @@
-const sqlite3 = require('better-sqlite3').verbose();
+const sqlite3 = require('better-sqlite3');
 const db = new sqlite3.Database('./db/todo.db');
 
 // Create tables if they don't exist

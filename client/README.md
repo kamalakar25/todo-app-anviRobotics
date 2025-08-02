@@ -1,6 +1,6 @@
 
 
-# 📝 MERN Todo App with SQLite & JWT Authentication
+# 📝 MERN Todo App with MongoDB & JWT Authentication
 
 A full-stack Todo application built with the MERN stack (MongoDB replaced by SQLite for local persistence), featuring secure JWT-based authentication, responsive Bootstrap UI, and user-specific todo management.
 
@@ -23,7 +23,7 @@ A full-stack Todo application built with the MERN stack (MongoDB replaced by SQL
 |-------------|-------------------|
 | Frontend    | React + Bootstrap |
 | Backend     | Express.js        |
-| Database    | SQLite            |
+| Database    | MongoDB            |
 | Auth        | JWT + bcryptjs    |
 
 ---
@@ -33,8 +33,8 @@ A full-stack Todo application built with the MERN stack (MongoDB replaced by SQL
 ### 1. Clone the Repository
 
 ```bash
-git clone https://github.com/your-username/mern-todo-sqlite.git
-cd mern-todo-sqlite
+git clone https://github.com/kamalakar25/todo-app-anviRobotics.git
+cd todo-app-anviRobotics
 ```
 
 ### 2. Install Dependencies
@@ -86,7 +86,7 @@ mern-todo-sqlite/
 │   ├── services/     # API calls
 │   └── App.js
 ├── server/           # Express backend
-│   ├── db/           # SQLite setup
+│   ├── db/           # MongoDB Setup
 │   ├── routes/       # Auth and Todo routes
 │   ├── middleware/   # JWT auth middleware
 │   └── server.js
@@ -124,7 +124,7 @@ mern-todo-sqlite/
 ## 🛡️ Security Notes
 
 - JWT secret is stored locally (`authMiddleware.js`)
-- SQLite used for local persistence — no cloud memory
+- MongoDB used for local persistence — no cloud memory
 - Only authenticated users can access their own todos
 
 ---
@@ -144,4 +144,6 @@ mern-todo-sqlite/
 
 **Kamalakar**  
 MERN Stack Developer  
+kkamalakar512@gmail.com
+
 

@@ -2,7 +2,7 @@
 
 # 📝 MERN Todo App with MongoDB & JWT Authentication
 
-A full-stack Todo application built with the MERN stack (MongoDB replaced by SQLite for local persistence), featuring secure JWT-based authentication, responsive Bootstrap UI, and user-specific todo management.
+A full-stack Todo application built with the MERN stack, featuring secure JWT-based authentication, responsive Bootstrap UI, and user-specific todo management.
 
 ---
 
@@ -10,7 +10,7 @@ A full-stack Todo application built with the MERN stack (MongoDB replaced by SQL
 
 - 🔐 **User Authentication** (Signup/Login with JWT)
 - 🗂️ **User-Specific Todos** (Create, Edit, Delete)
-- 💾 **SQLite Database** (Local storage, no cloud memory)
+- 💾 **MongoDB Database** (Local storage, no cloud memory)
 - 🎨 **Responsive UI** using Bootstrap 5
 - 🔄 **Session Persistence** via localStorage
 - 🧼 **Clean Architecture** with modular backend routes and middleware
@@ -80,7 +80,7 @@ npm start
 ## 🗃️ Project Structure
 
 ```
-mern-todo-sqlite/
+mern-todo/
 ├── client/           # React frontend
 │   ├── components/   # AuthForm, TodoList, Navbar
 │   ├── services/     # API calls
@@ -145,5 +145,6 @@ mern-todo-sqlite/
 **Kamalakar**  
 MERN Stack Developer  
 kkamalakar512@gmail.com
++91 9603850529
 
 

@@ -1,5 +1,5 @@
-const sqlite3 = require('better-sqlite3');
-const db = new sqlite3.Database('./db/todo.db');
+const Database = require('better-sqlite3');
+const db = new Database('./db/todo.db');
 
 // Create tables if they don't exist
 db.serialize(() => {
